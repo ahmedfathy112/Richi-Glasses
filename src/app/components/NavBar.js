@@ -25,9 +25,9 @@ const NavBar = () => {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden md:flex items-center space-x-8 ml-4" dir="rtl">
+          <div className="hidden md:flex items-center space-x-8 ml-4" dir="ltr">
             <Link
-              href="/aboutUs"
+              href="/pages/aboutUs"
               className="text-white hover:bg-orange-400 navLink px-3 py-2 rounded-md text-base font-medium"
             >
               تعرف علينا
@@ -101,13 +101,13 @@ const NavBar = () => {
             الصفحة الرئيسية
           </Link>
           <Link
-            href="/products"
+            href="/pages/products"
             className="text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             منتجاتنا
           </Link>
           <Link
-            href="/aboutUs"
+            href="/pages/aboutUs"
             className="text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             تعرف علينا

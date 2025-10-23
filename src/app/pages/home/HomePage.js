@@ -1,6 +1,17 @@
+"use client";
 import Image from "next/image";
+import Link from "next/link";
+import { useEffect } from "react";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function HomePage() {
+  useEffect(() => {
+    AOS.init({ duration: 800, once: true, offset: 120 });
+    const onLoad = () => AOS.refresh();
+    window.addEventListener("load", onLoad);
+    return () => window.removeEventListener("load", onLoad);
+  }, []);
   return (
     <div className="relative h-screen ">
       {/* Hero Section */}
@@ -20,15 +31,27 @@ export default function HomePage() {
         {/* Hero Content */}
         <div className="absolute inset-0 flex flex-col justify-center items-end px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
           <div className="text-right">
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4">
+            <h1
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-4"
+              data-aos="fade-down"
+            >
               نظارات عصرية لإطلالة متميزة
             </h1>
-            <p className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8">
+            <p
+              className="text-lg sm:text-xl lg:text-2xl text-white/90 mb-8"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               اكتشف مجموعتنا الحصرية من النظارات الطبية والشمسية
             </p>
-            <button className="bg-white text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 cursor-pointer transition duration-300">
+            <Link
+              href="/pages/products"
+              className="bg-white text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 cursor-pointer transition duration-300"
+              data-aos="fade-up"
+              data-aos-delay="400"
+            >
               تسوق الآن
-            </button>
+            </Link>
           </div>
         </div>
       </div>
@@ -36,12 +59,19 @@ export default function HomePage() {
       {/* Featured Categories Section */}
       <div className="py-16 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-gray-900 text-right mb-8">
+          <h2
+            className="text-3xl font-bold text-gray-900 text-right mb-8"
+            data-aos="fade-down"
+          >
             استكشف تشكيلاتنا
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Category Cards */}
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+              data-aos="fade-up"
+              data-aos-delay="100"
+            >
               <div className="relative h-64">
                 <Image
                   src="/heroSec.png"
@@ -60,7 +90,11 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+              data-aos="fade-up"
+              data-aos-delay="200"
+            >
               <div className="relative h-64">
                 <Image
                   src="/heroSec.png"
@@ -77,7 +111,11 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div
+              className="bg-white rounded-lg shadow-md overflow-hidden"
+              data-aos="fade-up"
+              data-aos-delay="300"
+            >
               <div className="relative h-64">
                 <Image
                   src="/heroSec.png"

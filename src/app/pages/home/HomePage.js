@@ -97,7 +97,7 @@ export default function HomePage() {
             >
               <div className="relative h-64">
                 <Image
-                  src="/heroSec.png"
+                  src="/medical.png"
                   alt="النظارات الطبية"
                   fill
                   className="object-cover"
@@ -118,7 +118,7 @@ export default function HomePage() {
             >
               <div className="relative h-64">
                 <Image
-                  src="/heroSec.png"
+                  src="/accesorise.png"
                   alt="الإكسسوارات"
                   fill
                   className="object-cover"

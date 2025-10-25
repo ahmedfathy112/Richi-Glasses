@@ -33,6 +33,12 @@ const NavBar = () => {
               تعرف علينا
             </Link>
             <Link
+              href="/dashboard"
+              className="text-white hover:bg-orange-400 navLink px-3 py-2 rounded-md text-base font-medium"
+            >
+              لوحة التحكم
+            </Link>
+            <Link
               href="/pages/products"
               className="text-white hover:bg-orange-400 navLink px-3 py-2 rounded-md text-base font-medium"
             >
@@ -105,6 +111,12 @@ const NavBar = () => {
             className="text-white block px-3 py-2 rounded-md text-base font-medium"
           >
             منتجاتنا
+          </Link>
+          <Link
+            href="/dashboard"
+            className="text-white block px-3 py-2 rounded-md text-base font-medium"
+          >
+            لوحة التحكم
           </Link>
           <Link
             href="/pages/aboutUs"

@@ -27,13 +27,8 @@ const ProductCard = ({ product }) => {
 
         {/* Price and Action */}
         <div className="flex flex-col space-y-4">
-          {/* Price */}
-          <div className="text-xl font-semibold text-amber-300">
-            {product.price} جنية
-          </div>
-
           {/* Order Button */}
-          <button className="w-full bg-amber-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">
+          <button className="w-full cursor-pointer bg-amber-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">
             اطلب الآن
           </button>
         </div>

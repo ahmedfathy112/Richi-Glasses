@@ -3,103 +3,60 @@ import { useMemo, useState, useEffect } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 import ProductCard from "../../components/ProductCard";
-
-const SAMPLE_PRODUCTS = [
-  {
-    id: 1,
-    imageUrl: "/glasses1.jpg",
-    title: "نظارات aviator الكلاسيكية",
-    description: "إطار خفيف الوزن، حماية UV400.",
-    price: "199",
-    category: "sunglasses",
-    dataos: "fade-up",
-    features: ["حماية UV400", "إطار خفيف"],
-  },
-  {
-    id: 2,
-    imageUrl: "/glasses2.jpg",
-    title: "نظارات دائرية عتيقة",
-    description: "تصميم كلاسيكي مريح للارتداء اليومي.",
-    price: "249",
-    category: "optical",
-    dataos: "fade-down",
-    features: ["إطار مميز", "مناسب للقراءة"],
-  },
-  {
-    id: 3,
-    imageUrl: "/glasses3.jpg",
-    title: "نظارات بإطار شفاف",
-    description: "مظهر أنيق وخفيف الوزن.",
-    price: "179",
-    dataos: "fade-right",
-    category: "optical",
-    features: ["إطار شفاف", "مريح"],
-  },
-  {
-    id: 4,
-    imageUrl: "/glasses4.jpg",
-    title: "نظارات شمسية aviator",
-    description: "عدسات معتمة وأداء ممتاز في الشمس.",
-    price: "299",
-    dataos: "fade-left",
-    category: "sunglasses",
-    features: ["عدسات متدرجة", "حماية UV400"],
-  },
-  {
-    id: 5,
-    imageUrl: "/glasses5.jpg",
-    title: "إطارات مربعة عصرية",
-    description: "تصميم هندسي أنيق يناسب الوجوه المختلفة.",
-    price: "219",
-    dataos: "fade-up",
-    category: "optical",
-    features: ["مريح", "خامات عالية"],
-  },
-  {
-    id: 6,
-    imageUrl: "/glasses6.jpg",
-    title: "نظارات عين القطة الرجعية",
-    description: "لمسة أنثوية أنيقة ومعاصرة.",
-    price: "239",
-    dataos: "fade-down",
-    category: "sunglasses",
-    features: ["ستايل رجعي", "خفيف"],
-  },
-  {
-    id: 7,
-    imageUrl: "/glasses9.jpg",
-    title: "نظارات معدن رفيع",
-    description: "مظهر متقن ومهني.",
-    price: "189",
-    dataos: "fade-right",
-    category: "optical",
-    features: ["معدن مقاوم", "خفيف الوزن"],
-  },
-  {
-    id: 8,
-    imageUrl: "/glasses8.jpg",
-    title: "نظارات قطبية فاخرة",
-    description: "جودة عالية وراحة عند التعرض للشمس.",
-    price: "349",
-    dataos: "fade-left",
-    category: "sunglasses",
-    features: ["قطبية", "حماية كاملة"],
-  },
-];
+import { supabase } from "@/app/lib/supabase";
 
 export default function ProductsPage() {
   const [query, setQuery] = useState("");
   const [filter, setFilter] = useState("all");
   const [sortBy, setSortBy] = useState("default");
   const [visibleCount, setVisibleCount] = useState(8);
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, offset: 120 });
     AOS.refresh();
   }, []);
 
+  useEffect(() => {
+    // fetch all products from Supabase on mount
+    const fetchProducts = async () => {
+      setLoading(true);
+      try {
+        const { data, error } = await supabase
+          .from("products")
+          .select("*")
+          .order("created_at", { ascending: false });
+
+        if (error) throw error;
+        setProducts(data || []);
+      } catch (err) {
+        console.error("Failed to fetch products:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchProducts();
+  }, []);
+
+  const normalized = useMemo(() => {
+    // normalize product shape to what ProductCard expects
+    return products.map((p) => ({
+      id: p.id,
+      imageUrl: p.imageUrl || p.image_url || p.image || "/glasses1.jpg",
+      title: p.name || p.title || "بدون اسم",
+      description: p.description || "",
+      price: p.price?.toString() || "0",
+      category: p.category || "",
+      dataos: "fade-up",
+      features: p.features || [],
+      created_at: p.created_at,
+    }));
+  }, [products]);
+
   const filtered = useMemo(() => {
-    let list = SAMPLE_PRODUCTS.filter((p) => {
+    let list = normalized.filter((p) => {
       const matchesFilter = filter === "all" ? true : p.category === filter;
       const matchesQuery = [p.title, p.description]
         .join(" ")
@@ -108,16 +65,14 @@ export default function ProductsPage() {
       return matchesFilter && matchesQuery;
     });
 
-    if (sortBy === "price-asc") {
-      list = list.sort((a, b) => Number(a.price) - Number(b.price));
-    } else if (sortBy === "price-desc") {
-      list = list.sort((a, b) => Number(b.price) - Number(a.price));
-    } else if (sortBy === "newest") {
-      list = list.sort((a, b) => b.id - a.id);
+    if (sortBy === "newest") {
+      list = list.sort(
+        (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
     }
 
     return list;
-  }, [query, filter, sortBy]);
+  }, [query, filter, sortBy, normalized]);
 
   const visibleProducts = filtered.slice(0, visibleCount);
 
@@ -129,7 +84,7 @@ export default function ProductsPage() {
         {/* Top Header */}
         <header className="mb-6 text-right">
           <h1 className="text-4xl font-extrabold tracking-tight text-white">
-            Our Collection
+            تشكيلاتنا
           </h1>
           <p className="mt-2 text-gray-300">
             تصفح تشكيلتنا من النظارات العصرية
@@ -167,7 +122,7 @@ export default function ProductsPage() {
                 الكل
               </button>
               <button
-                onClick={() => setFilter("sunglasses")}
+                onClick={() => setFilter("نظارات شمسية")}
                 className={`px-3 py-2 rounded-full text-sm font-medium ${
                   filter === "sunglasses"
                     ? "bg-amber-500 text-gray-900"
@@ -177,7 +132,7 @@ export default function ProductsPage() {
                 نظارات شمسية
               </button>
               <button
-                onClick={() => setFilter("optical")}
+                onClick={() => setFilter("نظارات طبية")}
                 className={`px-3 py-2 rounded-full text-sm font-medium ${
                   filter === "optical"
                     ? "bg-amber-500 text-gray-900"
@@ -186,8 +141,19 @@ export default function ProductsPage() {
               >
                 نظارات طبية
               </button>
+              <button
+                onClick={() => setFilter("إكسسوارات")}
+                className={`px-3 py-2 rounded-full text-sm font-medium ${
+                  filter === "Accessories"
+                    ? "bg-amber-500 text-gray-900"
+                    : "bg-gray-800 text-gray-200"
+                }`}
+              >
+                نظارات طبية
+              </button>
             </div>
 
+            {/* Sort by */}
             <div>
               <label htmlFor="sort" className="sr-only">
                 Sort by
@@ -200,15 +166,13 @@ export default function ProductsPage() {
               >
                 <option value="default">الافتراضي</option>
                 <option value="newest">الأحدث</option>
-                <option value="price-asc">السعر: منخفض إلى مرتفع</option>
-                <option value="price-desc">السعر: مرتفع إلى منخفض</option>
               </select>
             </div>
           </div>
         </div>
 
         {/* Product Grid */}
-        <section className="overflow-x-hidden">
+        <section className="overflow-x-hidden ProductSection">
           {visibleProducts.length === 0 ? (
             <div className="py-16 text-center text-gray-300">
               لا توجد نتائج مطابقة

@@ -22,7 +22,7 @@ export default function AboutUs() {
   }, []);
 
   return (
-    <main className="min-h-screen bg-gray-900 text-right">
+    <main className="min-h-screen bg-gray-900 text-right overflow-x-hidden">
       {/* Hero Section */}
       <section className="relative h-[400px] overflow-hidden">
         <Image

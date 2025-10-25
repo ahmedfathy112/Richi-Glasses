@@ -45,12 +45,12 @@ export default function HomePage() {
               اكتشف مجموعتنا الحصرية من النظارات الطبية والشمسية
             </p>
             <Link
-              href="/pages/products"
+              href="/pages/products?category=all"
               className="bg-white text-gray-900 px-8 py-3 rounded-lg text-lg font-semibold hover:bg-gray-100 cursor-pointer transition duration-300"
               data-aos="fade-up"
               data-aos-delay="400"
             >
-              تسوق الآن
+              إستكشف منتجاتنا
             </Link>
           </div>
         </div>
@@ -67,8 +67,9 @@ export default function HomePage() {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Category Cards */}
-            <div
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+            <Link
+              href="/pages/products?category=نظارات شمسية"
+              className="categoryCard bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               data-aos="fade-up"
               data-aos-delay="100"
             >
@@ -88,10 +89,11 @@ export default function HomePage() {
                   تشكيلة متنوعة من أرقى الماركات العالمية
                 </p>
               </div>
-            </div>
+            </Link>
 
-            <div
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+            <Link
+              href="/pages/products?category=نظارات طبية"
+              className="categoryCard bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               data-aos="fade-up"
               data-aos-delay="200"
             >
@@ -109,10 +111,11 @@ export default function HomePage() {
                 </h3>
                 <p className="text-gray-600">أحدث الموديلات بأعلى جودة</p>
               </div>
-            </div>
+            </Link>
 
-            <div
-              className="bg-white rounded-lg shadow-md overflow-hidden"
+            <Link
+              href="/pages/products?category=إكسسوارات"
+              className="categoryCard bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300"
               data-aos="fade-up"
               data-aos-delay="300"
             >
@@ -130,7 +133,7 @@ export default function HomePage() {
                 </h3>
                 <p className="text-gray-600">مستلزمات العناية بالنظارات</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </div>

@@ -18,15 +18,31 @@ export default function ProductsPage() {
     AOS.refresh();
   }, []);
 
+  // Get the category from URL on component mount
   useEffect(() => {
-    // fetch all products from Supabase on mount
+    const urlParams = new URLSearchParams(window.location.search);
+    const categoryParam = urlParams.get("category");
+    if (categoryParam) {
+      setFilter(categoryParam);
+    }
+  }, []);
+
+  useEffect(() => {
+    // fetch products from Supabase with category filter
     const fetchProducts = async () => {
       setLoading(true);
       try {
-        const { data, error } = await supabase
+        let query = supabase
           .from("products")
           .select("*")
           .order("created_at", { ascending: false });
+
+        // Apply category filter if not 'all'
+        if (filter !== "all") {
+          query = query.eq("category", filter);
+        }
+
+        const { data, error } = await query;
 
         if (error) throw error;
         setProducts(data || []);
@@ -38,7 +54,7 @@ export default function ProductsPage() {
     };
 
     fetchProducts();
-  }, []);
+  }, [filter]);
 
   const normalized = useMemo(() => {
     // normalize product shape to what ProductCard expects
@@ -149,7 +165,7 @@ export default function ProductsPage() {
                     : "bg-gray-800 text-gray-200"
                 }`}
               >
-                نظارات طبية
+                إكسسوارات
               </button>
             </div>
 

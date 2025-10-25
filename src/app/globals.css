@@ -34,3 +34,9 @@ body {
   scrollbar-width: none;
   /* scrollbar-color: var(--foreground) var(--background); */
 }
+.categoryCard {
+  transition: 0.5s ease-in;
+}
+.categoryCard:hover {
+  transform: translateY(-20px) !important;
+}

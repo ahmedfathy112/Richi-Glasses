@@ -20,7 +20,7 @@ const NavBar = () => {
             <Image
               src={Logo}
               alt="شعار الموقع"
-              className="w-[100px] h-[70px] my-2.5 rounded-2xl"
+              className="w-[180px] h-[70px] my-2.5 rounded-2xl"
             />
           </Link>
 

@@ -12,8 +12,8 @@ const ProductCard = ({ product }) => {
           src={product.imageUrl}
           alt={product.title}
           fill
-          className="object-contain p-4"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="w-full object-contain p-4"
+          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 
@@ -28,9 +28,13 @@ const ProductCard = ({ product }) => {
         {/* Price and Action */}
         <div className="flex flex-col space-y-4">
           {/* Order Button */}
-          <button className="w-full cursor-pointer bg-amber-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 focus:ring-offset-2">
+          <a
+            href={`https://wa.me/201060733679?اسم المنتج=${product.title} - وصف المنتج = ${product.description}`}
+            target="_blank"
+            className="w-full cursor-pointer text-center outline-0 bg-amber-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 "
+          >
             اطلب الآن
-          </button>
+          </a>
         </div>
 
         {/* Additional Features */}

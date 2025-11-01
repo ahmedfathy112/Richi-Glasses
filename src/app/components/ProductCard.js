@@ -7,13 +7,13 @@ const ProductCard = ({ product }) => {
       data-aos={product?.dataos}
     >
       {/* Product Image Container */}
-      <div className="relative h-64 w-full bg-gray-900 flex items-center justify-center">
+      <div className="relative h-78 w-full bg-gray-900">
         <Image
           src={product.imageUrl}
           alt={product.title}
           fill
-          className="w-full object-contain p-4"
-          // sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          className="w-full h-full object-cover"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
         />
       </div>
 

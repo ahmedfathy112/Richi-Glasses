@@ -4,6 +4,7 @@ import AOS from "aos";
 import "aos/dist/aos.css";
 import ProductCard from "../../components/ProductCard";
 import { supabase } from "@/app/lib/supabase";
+import { useLoading } from "../../components/LoadingOverlay";
 
 export default function ProductsPage() {
   const [query, setQuery] = useState("");
@@ -11,7 +12,7 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState("default");
   const [visibleCount, setVisibleCount] = useState(8);
   const [products, setProducts] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const { showLoading, hideLoading } = useLoading();
 
   useEffect(() => {
     AOS.init({ duration: 800, once: true, offset: 120 });
@@ -30,7 +31,11 @@ export default function ProductsPage() {
   useEffect(() => {
     // fetch products from Supabase with category filter
     const fetchProducts = async () => {
-      setLoading(true);
+      showLoading({
+        size: 150,
+        accentColor: "#f59e0b", // Amber color to match your theme
+        logoColor: "#1f2937", // Gray-800 to match your theme
+      });
       try {
         let query = supabase
           .from("products")
@@ -49,12 +54,12 @@ export default function ProductsPage() {
       } catch (err) {
         console.error("Failed to fetch products:", err);
       } finally {
-        setLoading(false);
+        hideLoading();
       }
     };
 
     fetchProducts();
-  }, [filter]);
+  }, [filter, showLoading, hideLoading]);
 
   const normalized = useMemo(() => {
     // normalize product shape to what ProductCard expects

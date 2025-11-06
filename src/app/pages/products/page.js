@@ -101,9 +101,9 @@ export default function ProductsPage() {
 
   return (
     <main className="min-h-screen bg-gray-900">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 max-md:px-2">
         {/* Top Header */}
-        <header className="mb-6 text-right">
+        <header className="mb-6 text-right px-5">
           <h1 className="text-4xl font-extrabold tracking-tight text-white">
             تشكيلاتنا
           </h1>
@@ -113,7 +113,7 @@ export default function ProductsPage() {
         </header>
 
         {/* Toolbar */}
-        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 max-md:px-4">
           {/* Left: Search */}
           <div className="w-full md:w-1/3 order-2 md:order-1">
             <label htmlFor="search" className="sr-only">
@@ -199,7 +199,7 @@ export default function ProductsPage() {
               لا توجد نتائج مطابقة
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 ">
               {visibleProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

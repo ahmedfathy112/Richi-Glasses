@@ -33,8 +33,8 @@ export default function ProductsPage() {
     const fetchProducts = async () => {
       showLoading({
         size: 150,
-        accentColor: "#f59e0b", // Amber color to match your theme
-        logoColor: "#1f2937", // Gray-800 to match your theme
+        accentColor: "#f59e0b",
+        logoColor: "#1f2937",
       });
       try {
         let query = supabase

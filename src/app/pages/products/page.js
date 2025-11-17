@@ -29,7 +29,6 @@ export default function ProductsPage() {
   }, []);
 
   useEffect(() => {
-    // fetch products from Supabase with category filter
     const fetchProducts = async () => {
       showLoading({
         size: 150,
@@ -42,7 +41,6 @@ export default function ProductsPage() {
           .select("*")
           .order("created_at", { ascending: false });
 
-        // Apply category filter if not 'all'
         if (filter !== "all") {
           query = query.eq("category", filter);
         }

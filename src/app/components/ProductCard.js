@@ -24,7 +24,7 @@ const ProductCard = ({ product }) => {
         className="bg-gray-800 w-full rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden sm:max-w-sm sm:mx-auto border border-gray-700" // data-aos={product?.dataos}
       >
         <div
-          className="relative h-78 w-[90%] mx-auto bg-gray-900 max-md:h-[550px] cursor-pointer"
+          className="relative h-58 w-[90%] mx-auto bg-gray-900 max-md:h-[450px] cursor-pointer"
           onClick={() => setIsOpen(true)}
           role="button"
           aria-label={`عرض صورة ${product.name}`}

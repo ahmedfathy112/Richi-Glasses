@@ -9,6 +9,14 @@ const ProductCard = ({ product }) => {
 
   const shouldBeUnoptimized = isBase64;
 
+  // extract the code of the glass
+  const productCode = (() => {
+    const desc = (product.description || "").trim();
+
+    const m = desc.match(/كود\s*[:\-–]?\s*([\w-]+)\s*$/u);
+    return m ? m[1] : null;
+  })();
+
   useEffect(() => {
     if (!isOpen) return;
     const onKey = (e) => {
@@ -24,7 +32,7 @@ const ProductCard = ({ product }) => {
         className="bg-gray-800 w-full rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 overflow-hidden sm:max-w-sm sm:mx-auto border border-gray-700" // data-aos={product?.dataos}
       >
         <div
-          className="relative h-58 w-[90%] mx-auto bg-gray-900 max-md:h-[400px] cursor-pointer"
+          className="relative h-78 w-full bg-gray-900 max-md:h-[350px] cursor-pointer"
           onClick={() => setIsOpen(true)}
           role="button"
           aria-label={`عرض صورة ${product.name}`}
@@ -37,7 +45,7 @@ const ProductCard = ({ product }) => {
             unoptimized={shouldBeUnoptimized}
             placeholder="blur"
             blurDataURL="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDABQODxIPDRQSEBIXFRQdHx4eHRsdHSIeHx8hIiMnJSUjJycmJiYnJyYmKDAwMDAmJicpKSkpKSkpKSkpKSkpKSn/2wBDAR4eHh4eHiEeHiEpIiIpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSkpKSn/wAARCAAIAAoDASIAAhEBAxEB/8QAFQABAQAAAAAAAAAAAAAAAAAAAAb/xAAUEAEAAAAAAAAAAAAAAAAAAAAA/8QAFQEBAQAAAAAAAAAAAAAAAAAAAAX/xAAUEQEAAAAAAAAAAAAAAAAAAAAA/9oADAMBAAIRAxEAPwCdABmX/9k="
-            className="w-full h-full object-center rounded-2xl"
+            className="w-full h-full object-center "
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
         </div>
@@ -47,7 +55,7 @@ const ProductCard = ({ product }) => {
           <p className="text-gray-300 text-sm mb-4">{product.description}</p>
           <div className="flex flex-col space-y-4">
             <a
-              href={`https://wa.me/96596639714?text= اسم المنتج=${product.title} - وصف المنتج = ${product.description}`}
+              href={`https://wa.me/96596639714?text= Richi - كود المنتج = ${productCode}`}
               target="_blank"
               className="w-full cursor-pointer text-center outline-0 bg-amber-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 "
             >

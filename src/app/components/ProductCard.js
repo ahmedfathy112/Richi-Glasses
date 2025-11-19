@@ -47,7 +47,7 @@ const ProductCard = ({ product }) => {
           <p className="text-gray-300 text-sm mb-4">{product.description}</p>
           <div className="flex flex-col space-y-4">
             <a
-              href={`https://wa.me/96596639714?text= اسم المنتج=${product.name} - وصف المنتج = ${product.description}`}
+              href={`https://wa.me/96596639714?text= اسم المنتج=${product.title} - وصف المنتج = ${product.description}`}
               target="_blank"
               className="w-full cursor-pointer text-center outline-0 bg-amber-500 text-gray-900 py-3 px-6 rounded-lg font-semibold hover:bg-amber-600 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-amber-400 "
             >

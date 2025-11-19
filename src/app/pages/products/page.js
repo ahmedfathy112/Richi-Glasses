@@ -19,7 +19,6 @@ export default function ProductsPage() {
     AOS.refresh();
   }, []);
 
-  // Get the category from URL on component mount
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get("category");
@@ -36,10 +35,11 @@ export default function ProductsPage() {
         logoColor: "#1f2937",
       });
       try {
+        const ascending = sortBy === "oldest" ? true : false;
         let query = supabase
           .from("products")
           .select("*")
-          .order("created_at", { ascending: false });
+          .order("created_at", { ascending });
 
         if (filter !== "all") {
           query = query.eq("category", filter);
@@ -57,10 +57,9 @@ export default function ProductsPage() {
     };
 
     fetchProducts();
-  }, [filter, showLoading, hideLoading]);
+  }, [filter, sortBy, showLoading, hideLoading]);
 
   const normalized = useMemo(() => {
-    // normalize product shape to what ProductCard expects
     return products.map((p) => ({
       id: p.id,
       imageUrl: p.imageUrl || p.image_url || p.image || "/glasses1.jpg",
@@ -84,9 +83,14 @@ export default function ProductsPage() {
       return matchesFilter && matchesQuery;
     });
 
+    // sorting
     if (sortBy === "newest") {
       list = list.sort(
         (a, b) => new Date(b.created_at) - new Date(a.created_at)
+      );
+    } else if (sortBy === "oldest") {
+      list = list.sort(
+        (a, b) => new Date(a.created_at) - new Date(b.created_at)
       );
     }
 
@@ -112,7 +116,7 @@ export default function ProductsPage() {
 
         {/* Toolbar */}
         <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-8 max-md:px-4">
-          {/* Left: Search */}
+          {/*  Search */}
           <div className="w-full md:w-1/3 order-2 md:order-1">
             <label htmlFor="search" className="sr-only">
               Search
@@ -127,7 +131,7 @@ export default function ProductsPage() {
             />
           </div>
 
-          {/* Right: Filters & Sort */}
+          {/*  Filters & Sort */}
           <div className="flex items-center gap-3 order-1 md:order-2 w-full md:w-auto">
             <div className="flex items-center gap-2">
               <button
@@ -185,6 +189,7 @@ export default function ProductsPage() {
               >
                 <option value="default">الافتراضي</option>
                 <option value="newest">الأحدث</option>
+                <option value="oldest">الأقدم</option>
               </select>
             </div>
           </div>

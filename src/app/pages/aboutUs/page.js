@@ -133,14 +133,14 @@ export default function AboutUs() {
               <FaPhone className="text-amber-400 text-xl" />
               <div>
                 <h3 className="font-bold text-white mb-1">اتصل بنا</h3>
-                <p>+20 123 456 7890</p>
+                <p>+965 9663 9714</p>
               </div>
             </div>
             <div className="flex items-center gap-4 text-gray-300">
               <FaEnvelope className="text-amber-400 text-xl" />
               <div>
                 <h3 className="font-bold text-white mb-1">البريد الإلكتروني</h3>
-                <p>info@richiglasses.com</p>
+                <p>msaleh1988a@gmail.com</p>
               </div>
             </div>
             <div className="flex items-center gap-4 text-gray-300">
@@ -159,7 +159,7 @@ export default function AboutUs() {
             </h3>
             <div className="flex gap-4">
               <Link
-                href="https://wa.me/+201234567890"
+                href="https://wa.me/+96596639714"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-12 h-12 bg-gray-700 rounded-full flex items-center justify-center text-white hover:bg-green-600 transition-colors"

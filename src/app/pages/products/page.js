@@ -131,7 +131,7 @@ export default function ProductsPage() {
             />
           </div>
 
-          {/*  Filters & Sort */}
+          {/*  Filters*/}
           <div className="flex items-center gap-3 order-1 md:order-2 w-full md:w-auto">
             <div className="flex items-center gap-2">
               <button
@@ -195,7 +195,7 @@ export default function ProductsPage() {
           </div>
         </div>
 
-        {/* Product Grid */}
+        {/* Product  */}
         <section className="overflow-x-hidden ProductSection">
           {visibleProducts.length === 0 ? (
             <div className="py-16 text-center text-gray-300">

@@ -13,13 +13,22 @@ const Dashboard = () => {
   const [products, setProducts] = useState([]);
   const [totalProducts, setTotalProducts] = useState(0);
 
-  // check if user is authenticated
-  const user = supabase.auth.getUser().then(({ data: { user } }) => {
-    if (!user) {
-      alert("يرجى تسجيل الدخول للوصول إلى لوحة التحكم");
-      window.location.href = "/pages/login";
-    }
-  });
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user && typeof window !== "undefined") {
+          window.location.href = "/pages/login";
+        }
+      } catch (error) {
+        console.error("Auth check failed:", error);
+      }
+    };
+
+    checkAuth();
+  }, []);
 
   useEffect(() => {
     fetchDashboardData();

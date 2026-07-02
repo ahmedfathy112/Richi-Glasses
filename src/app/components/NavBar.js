@@ -36,7 +36,7 @@ const NavBar = () => {
             <Image
               src={Logo}
               alt="شعار الموقع"
-              className="h-14 w-[180px] rounded-2xl object-contain"
+              className="h-18 w-18 rounded-full object-contain"
             />
           </Link>
 

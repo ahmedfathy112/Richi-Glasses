@@ -268,11 +268,11 @@ export default function GalleryPage() {
   return (
     <main className="min-h-screen bg-slate-950 text-white">
       <section className="relative overflow-hidden px-4 py-14 sm:px-6 lg:px-8">
-        <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-b from-amber-500/20 via-transparent to-transparent" />
+        <div className="absolute inset-x-0 top-0 -z-10 h-72 bg-gradient-to-b from-amber-500/20 via-purple-400/20 to-transparent" />
         <div className="mx-auto max-w-7xl">
           <div className="grid gap-10 lg:grid-cols-[1.3fr_0.7fr] lg:items-end">
             <div className="text-right">
-              <p className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-400/10 px-4 py-2 text-sm text-amber-200">
+              <p className="inline-flex items-center gap-2 rounded-full border border-amber-500/50 bg-amber-400/20 px-4 py-2 text-sm text-amber-200 font-medium">
                 معرضنا الفاخر
               </p>
               <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl lg:text-6xl">
@@ -284,8 +284,8 @@ export default function GalleryPage() {
               </p>
             </div>
 
-            <div className="rounded-[32px] border border-white/10 bg-slate-900/80 p-6 shadow-2xl shadow-black/40 backdrop-blur-xl">
-              <p className="text-sm uppercase tracking-[0.2em] text-slate-400">
+            <div className="rounded-[32px] border border-purple-300/50 bg-gradient-to-br from-purple-100/10 via-purple-100/5 to-amber-100/10 p-6 shadow-2xl shadow-purple-500/20 backdrop-blur-xl">
+              <p className="text-sm uppercase tracking-[0.2em] text-slate-300 font-semibold">
                 معرض كامل
               </p>
               <h2 className="mt-4 text-2xl font-semibold text-white">
@@ -299,12 +299,18 @@ export default function GalleryPage() {
           </div>
 
           <div className="mt-14 grid gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {galleryImages.map((image) => (
+            {galleryImages.map((image, index) => (
               <div
                 key={image.id}
-                className="overflow-hidden rounded-[32px] border border-white/10 bg-slate-900/80 shadow-2xl shadow-black/30 transition hover:-translate-y-1 hover:shadow-2xl"
+                className={`overflow-hidden rounded-[32px] transition hover:-translate-y-2 hover:shadow-2xl ${
+                  index % 3 === 0
+                    ? "border border-purple-300 bg-gradient-to-br from-purple-100 to-purple-50/80 shadow-lg shadow-purple-500/30"
+                    : index % 3 === 1
+                      ? "border border-amber-300 bg-gradient-to-br from-amber-100 to-orange-50/80 shadow-lg shadow-amber-500/30"
+                      : "border border-blue-300 bg-gradient-to-br from-blue-100 to-cyan-50/80 shadow-lg shadow-blue-500/30"
+                }`}
               >
-                <div className="relative h-[340px] overflow-hidden bg-slate-950 sm:h-[380px] lg:h-[420px]">
+                <div className="relative h-[340px] overflow-hidden bg-gradient-to-br from-slate-200 to-slate-300 sm:h-[380px] lg:h-[420px]">
                   <Image
                     src={image.src}
                     alt={image.alt}
@@ -315,10 +321,18 @@ export default function GalleryPage() {
                   />
                 </div>
                 <div className="p-5 text-right">
-                  <p className="text-base font-semibold text-white">
+                  <p
+                    className={`text-base font-semibold ${
+                      index % 3 === 0
+                        ? "text-purple-900"
+                        : index % 3 === 1
+                          ? "text-amber-900"
+                          : "text-blue-900"
+                    }`}
+                  >
                     {image.title}
                   </p>
-                  <p className="mt-2 text-sm leading-6 text-slate-400">
+                  <p className="mt-2 text-sm leading-6 text-slate-600">
                     {image.alt}
                   </p>
                 </div>
